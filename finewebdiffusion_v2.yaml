@@ -1,0 +1,54 @@
+# FineWeb NoProp Training Configuration
+
+# Dataset settings
+data_path: "../data/fineweb10B"
+num_workers: 4
+
+# Model architecture  
+num_layers: 10
+
+# Training parameters
+batch_size: 128
+outer_loops: 300
+batches_per_layer: 64
+layer_lr: 0.001
+embedding_lr: 0.001
+layer_optimizer: "AdamW"
+embedding_optimizer: "Adagrad"
+layer_weight_decay: 0.1
+embedding_weight_decay: 0.
+
+
+# Language model specific parameters
+embed_dim: 768
+num_heads: 8
+ff_dim: 1536
+max_seq_len: 128
+dropout: 0.1
+
+# NoProp specific parameters
+timesteps: 10  # Same as num_layers
+eta: 0.1       # η hyperparameter from paper
+
+# Noise schedule parameters
+noise_schedule_type: "linear"  # "cosine" or "linear"
+noise_schedule_min: 0.1     # Minimum noise level
+noise_schedule_max: 0.9     # Maximum noise level
+
+# Optimization settings
+grad_clip_max_norm: 1.0
+
+# Logging and saving
+log_interval: 50
+save_best: true
+save_final: false
+save_checkpoints: false
+detailed_logging: true  # Enable batch-level logging
+validation_batches_per_log: 10  # Number of validation batches to use for quick validation
+best_model_path: "checkpoints/best_fineweb_noprop_model.pt"
+final_model_path: "checkpoints/final_fineweb_noprop_model.pt"
+checkpoint_dir: "checkpoints/fineweb"
+
+# Reproducibility
+seed: 42
+
